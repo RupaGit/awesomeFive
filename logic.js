@@ -113,7 +113,7 @@ $(`#submit-employersForm`).on("click", function(event){
 
 
 // When Modal Box..
-//$("#bidCard").on("click",function()
+$("#bidCard").on("click",function()
 // get modal element
 var modal = document.getElementById('simpleModal');
 //get opne modal nutton
