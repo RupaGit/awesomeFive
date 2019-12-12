@@ -111,6 +111,42 @@ $(`#submit-employersForm`).on("click", function(event){
     console.log(description);
 })
 
+
+// When Modal Box..
+//$("#bidCard").on("click",function()
+// get modal element
+var modal = document.getElementById('simpleModal');
+//get opne modal nutton
+var modalBtn = document.getElementById('modalBtn');
+// get close button
+var closeBtn = document.getElementsByClassName('closeBtn')[0];
+ 
+//listen for a open click
+modalBtn.addEventListener('click', openModal);
+//listenh for close click
+closeBtn.addEventListener('click', closeModal);
+//listen for outside click
+window.addEventListener('click', outsideClick);
+
+});
+//function to open modal
+function openModal(){
+   modal.style.display = 'block';
+}
+ 
+//function to close modal
+function closeModal(){
+   modal.style.display = 'none';
+}
+ 
+//function to close modal outside
+function outsideClick(e){
+   if(e.target == modal){
+        modal.style.display = 'none';
+   }   
+}
+
+// =========================================================================
 $('input[name="dates"]').daterangepicker();
 $(function() {
     $('input[name="datefilter"]').daterangepicker({
