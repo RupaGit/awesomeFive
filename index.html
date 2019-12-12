@@ -38,24 +38,27 @@
     <aside class="right tab tab-1">
       Employer's Name :<input type="text" name="employersName" id="name-input">
       Job Title :<input type="text" name="jobTitle" id="jobTitle-input">
-      Name Of City Where Employee Will Work :<input type="text" name="city-input">
-      Date And Time :
-        <input type="text" name="datefilter" value="" /> 
-      Requested Hours :<input type="text" name="requestedHours-input">
-      Suggested Price For Service :<input type="text" name="price-input">
-      Per Hour or Day :<input type="text" name="hourlyDaily-input">
-      Contact Information :<input type="text" name="contact-input">
-      Job Description :<input type="text" name="description-input">
+      Name Of City Where Employee Will Work :<input type="text" name="city-input" id="city-input">
+      Service Date :
+        <input type="date" name="timefilter" value="" id="datefilter"/> 
+      Service Time :
+        <input type="time" name="timefilter" value="" id="timefilter"/> 
+      Requested Hours :<input type="number" name="requestedHours-input" id="noOfHours">
+      Suggested Price For Service :<input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" name="price-input" id="suggestedPrice">
+      Per Hour or Day :<input type="text" name="hourlyDaily-input" id="hourlyDaily-input">
+      Contact Information :<input type="text" name="contact-input" id="contact-input" >
+      Job Description :<input type="text" name="description-input" id="description-input">
    </aside>
    <button id="add">Add</button>
     <button id="edit">Edit</button>
     <button id="remove">Remove</button>
     <button class="btn btn-primary" id="submit-employersForm" type="submit">Submit</button>
-  </form> -->
+  </form> 
   </div> 
   </div>
 </div>
 
+<!------------------------------------------------------Employer's Gig Description ------------------------------------------->
   
   <div class="col-lg-6">
     <div class="card">
@@ -80,20 +83,8 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="./assets/javascript/app.js">
+     <script src="logic.js">
      </script>
 
 </body>
