@@ -3,63 +3,36 @@
     font-family: Optima, sans-serif;
 }
 
-.container{
-    overflow: hidden;
+body {
+    background-image: url("hustlePic.jpg");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
-
-/* Employers Requirements */
-.tab {
-    float: left;
-    display: grid;
+button, a {
+    font-size: 80px;
+    font-weight: bold;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    border-style: outset;
+    border-radius: 2px;
+    -webkit-box-shadow: 5px 5px 13px 10px black, -50px -40px 0px -26px black; 
+    box-shadow: 3px 3px 3px 6x rgb(5, 5, 75);;
+    box-shadow: 3px 3px 3px 6px rgb(5, 5, 75); ;
+    text-shadow:  3px 3px 3px black
 }
-
-h1 {
+button:hover {
     padding: 0;
-    font-size: 50px!important;
-    text-decoration: underline solid rgb(68, 68, 68);
-}
-
-.card-header {
-    font-size: 20px;
-    background-color: rgb(164, 213, 214)!important;
-    text-decoration: underline solid rgb(68, 68, 68);
-    text-align: center;
-}
-
-section {
-    padding: inherit;
-}
-
-#description-box {
-    font-size: medium;
-    border: 2px solid rgb(253, 116, 116);
-    padding: inherit;
-    line-height: 1.5;
-    height: 500px;
-}
-
-/* Employers Requirements */
-aside {
-    font-size: medium;
-    border: 2px solid rgb(253, 116, 116);
-    padding: inherit;
-    line-height: 1.5;
-}
-/* Employers Requirements */
-form{ 
-    pad: 30px;
-    width: 65%;
-    float: left;
-    display: grid;
-    height: 700px;
-}
-
-.submit {
-    padding: 0;
-    background-color: rgb(255, 177, 242);
+    background-color: rgb(252, 229, 247);
     border: 3px solid;
     border-radius: 3px;
+    padding: 5px 10px;
+    margin-top: 70px;
+    margin-bottom: 70px;
     border-style: outset;
 }
 
+.list {
+    padding: 10px;
+}
