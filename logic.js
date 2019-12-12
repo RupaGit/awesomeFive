@@ -82,6 +82,33 @@ $(`#description-input`).text(snapshot.val().description);
     console.log("Errors handled: " + errorObject.code);
 });
 
+//Part Time Gig list #5-Grace
+//When a user posts a new job, take snapshot of the new data added.
+database.ref().on("child_added", function(snapShot){
+    var nameInput = snapShot.val().name;
+    var jobInput = snapShot.val().jobTitle;
+    var cityInput = snapShot.val().city;
+    var datetimepicker = snapShot.val().dateTime;
+    var requestedHoursInput = snapShot.val().requestedHours;
+    var priceInput = snapShot.val().price;
+    var hourlyDailyInput = snapShot.val().hoursWork;
+    var contactInput = snapShot.val().contact;
+    var descriptionInput = snapShot.val().description;
+ 
+    var newRow = $("<tr>").append(
+        $("<td>").text(nameInput),
+        $("<td>").text(jobInput),
+        $("<td>").text(cityInput),
+        $("<td>").text(datetimepicker),
+        $("<td>").text(requestedHoursInput),
+        $("<td>").text(priceInput),
+        $("<td>").text(hourlyDailyInput),
+        $("<td>").text(contactInput),
+        $("<td>").text(descriptionInput)
+    );
+      $("#bidCard").append(newRow);   
+});
+
 // =========================================================================
 
 // Whenever a user clicks the submit-button...........
