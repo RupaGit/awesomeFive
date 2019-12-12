@@ -4,11 +4,98 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href=' http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>Trivia Game</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
 </head>
+
+<body>
+
+  <div class="jumbotron">
+      <h1 class="text-center">Employee's Job Registration Form</h1>
+  </div>
+      <!---------------Create a Text-Box where Employer can input the job description-category...------------>
+      <!---------------Create a Text-Box where Employer can input the job description-category...------------>
+      <!---------------Create a Text-Box where Employer can input the job description-category...------------>
+    <div class="col-lg-6">
+        <div class="card">
+    <div class="card-header">
+      Employer's Job Registration Form :
+    </div>
+    <div class="card-body">
+    <form class="container main">
+    <aside class="right tab tab-1">
+      Employer's Name :<input type="text" name="employersName" id="name-input">
+      Job Title :<input type="text" name="jobTitle" id="jobTitle-input">
+      Name Of City Where Employee Will Work :<input type="text" name="city-input">
+      Date And Time :
+        <input type="text" name="datefilter" value="" /> 
+      Requested Hours :<input type="text" name="requestedHours-input">
+      Suggested Price For Service :<input type="text" name="price-input">
+      Per Hour or Day :<input type="text" name="hourlyDaily-input">
+      Contact Information :<input type="text" name="contact-input">
+      Job Description :<input type="text" name="description-input">
+   </aside>
+   <button id="add">Add</button>
+    <button id="edit">Edit</button>
+    <button id="remove">Remove</button>
+    <button class="btn btn-primary" id="submit-employersForm" type="submit">Submit</button>
+  </form> -->
+  </div> 
+  </div>
+</div>
+
+  
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+          Employer's Gig Description :
+      </div>
+      <div class="card-body" id="employerGig">
+      <section> 
+      <div id="description-box">
+        <h2 id="employersName-display">Employer's Name :</h2>
+        <h4 id="jobTitle-display">Job Title :</h4>
+        <h4 id="City-display">City :</h4>
+        <h4 id="datetimepicker1" class='input-group date'>Date & Time :</h4>
+        <h4 id="requestedHours-display">Hour's Requested :</h4>
+        <h4 id="price-display">Suggested-Price :</h4>
+        <h4 id="hourlyDaily-display">Pay...Per-Day or Per-Hour :</h4>
+        <h4 id="contact-display">Employer's Contact :</h4>
+        <p id="description-display">Job Description :</p>
+      </div>
+      </section>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="./assets/javascript/app.js">
+     </script>
+
+</body>
+</html>
+
