@@ -1,0 +1,65 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Optima, sans-serif;
+}
+
+.container{
+    overflow: hidden;
+}
+
+
+/* Employers Requirements */
+.tab {
+    float: left;
+    display: grid;
+}
+
+h1 {
+    padding: 0;
+    font-size: 50px!important;
+    text-decoration: underline solid rgb(68, 68, 68);
+}
+
+.card-header {
+    font-size: 20px;
+    background-color: rgb(164, 213, 214)!important;
+    text-decoration: underline solid rgb(68, 68, 68);
+    text-align: center;
+}
+
+section {
+    padding: inherit;
+}
+
+#description-box {
+    font-size: medium;
+    border: 2px solid rgb(253, 116, 116);
+    padding: inherit;
+    line-height: 1.5;
+    height: 500px;
+}
+
+/* Employers Requirements */
+aside {
+    font-size: medium;
+    border: 2px solid rgb(253, 116, 116);
+    padding: inherit;
+    line-height: 1.5;
+}
+/* Employers Requirements */
+form{ 
+    pad: 30px;
+    width: 65%;
+    float: left;
+    display: grid;
+    height: 700px;
+}
+
+.submit {
+    padding: 0;
+    background-color: rgb(255, 177, 242);
+    border: 3px solid;
+    border-radius: 3px;
+    border-style: outset;
+}
+
