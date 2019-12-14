@@ -48,30 +48,24 @@
       database.ref("/jobDetails").push(newJob);
       console.log(newJob);
     });
-
+//Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function(snapShot){
-    var name = snapShot.val().name;
     var jobTitle = snapShot.val().jobTitle;
     var city = snapShot.val().city;
-    var datePicker = snapShot.val().datePicker;
-    var timePicker = snapShot.val().timePicker;
+    var description = snapShot.val().description;
     // var requestedHoursInput = snapShot.val().requestedHours;
     var suggestedPrice = snapShot.val().suggestedPrice;
-    var hourDaily = snapShot.val().hourDaily;
-    var contact = snapShot.val().contact;
-    var description = snapShot.val().description;
- 
+    var buttonBid = snapShot.val().buttonBid;
+   
+ console.log(snapShot.val())
     var newRow = $("<tr>").append(
-        $("<td>").text(name),
         $("<td>").text(jobTitle),
         $("<td>").text(city),
-        $("<td>").text(datePicker),
-        $("<td>").text(timePicker),
+        $("<td>").text(description),
         $("<td>").text(suggestedPrice),
-        $("<td>").text( hourDaily),
-        $("<td>").text(contact),
-        $("<td>").text(description)
+        $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
     );
-      $("#bidCard").append();   
+      $("#partTime-table > tbody").append(newRow); 
 });
+
 
