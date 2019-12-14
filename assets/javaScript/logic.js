@@ -75,3 +75,15 @@ database.ref("/jobDetails").on("child_added", function(snapShot){
       $("#bidCard").append();   
 });
 
+$("#submit-checkEmployerGigs").on("click", function(event){
+    event.preventDefault();
+    const databaseRef = firebase.database().ref("jobDetails");
+    var empName = $("#employerEmail").val().trim();
+    databaseRef.orderByChild("name").equalTo(empName).on("child_added", function(snapshot) {
+        var a = snapshot.numChildren();
+        console.log(a);
+      });
+    // console.log(empName);
+    // const employerResults = databaseRef.child('jobDetails').orderByChild('name').equalTo(empName);
+    // console.log(employerResults);
+})
