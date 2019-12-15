@@ -13,19 +13,46 @@
     <!-- Firebase References -->
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <style>
+        body * {
+            font-weight: bold;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
 
 </head>
 
 <body>
+
+    <div class="container" id="formDiv">
+        <form>
+            <div class="form-group thead-dark" >
+                <label for="employerEmail">Employer Email address</label>
+                <input type="text" required class="form-control" id="employerEmail" placeholder="Please enter your email address">
+
     <div class="container">
         <form>
             <div class="form-group thead-dark">
                 <label for="employerEmail">Employer Email address</label>
                 <input type="email" required class="form-control" id="employerEmail" placeholder="Please enter your email address">
+
             </div>
             <button type="submit" class="btn btn-primary" id="submit-checkEmployerGigs">Submit</button>
         </form>
     </div>
+
+
+    <div class="container" >
+        <div class = "jumbotron" id="myGigs">
+
+        </div>
+
+    </div>
+
+    <script src="assets/javaScript/logic.js"></script>
 
     <div class="container" id="myGigs">
 
