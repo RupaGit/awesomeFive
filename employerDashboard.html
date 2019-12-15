@@ -13,13 +13,22 @@
     <!-- Firebase References -->
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <style>
+        body * {
+            font-weight: bold;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
 
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="formDiv">
         <form>
-            <div class="form-group thead-dark">
+            <div class="form-group thead-dark" >
                 <label for="employerEmail">Employer Email address</label>
                 <input type="text" required class="form-control" id="employerEmail" placeholder="Please enter your email address">
             </div>
@@ -27,7 +36,10 @@
         </form>
     </div>
 
-    <div class="container" id="myGigs">
+    <div class="container" >
+        <div class = "jumbotron" id="myGigs">
+
+        </div>
 
     </div>
 

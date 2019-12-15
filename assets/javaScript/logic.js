@@ -79,11 +79,31 @@ $("#submit-checkEmployerGigs").on("click", function(event){
     event.preventDefault();
     const databaseRef = firebase.database().ref("jobDetails");
     var empName = $("#employerEmail").val().trim();
+    $("#formDiv").hide();
+    $("#myGigs").show();
+    var welcomeUser = $("<h3>").html("Welcome back "+empName);
     databaseRef.orderByChild("name").equalTo(empName).on("child_added", function(snapshot) {
-        var a = snapshot.numChildren();
-        console.log(a);
-      });
-    // console.log(empName);
-    // const employerResults = databaseRef.child('jobDetails').orderByChild('name').equalTo(empName);
-    // console.log(employerResults);
+        var gigsArray = [];
+        gigsArray.push(snapshot.val());
+        console.log(gigsArray);
+        $("#myGigs").prepend(welcomeUser);
+        for (var i=0; i<gigsArray.length; i++) {
+            var mainGig = $("<div>");
+            mainGig.addClass("card border-dark");
+            var gigDiv = $("<div>");
+            gigDiv.addClass("card-body");
+            var gigName = $("<h5>").html(gigsArray[i].jobTitle);
+            gigName.addClass("card-title");
+            var gigDesc = $("<p>").text(gigsArray[i].description);
+            gigDesc.addClass("card-text");
+            var viewBidsBtn = $("<a>").html("View Bids");
+            viewBidsBtn.addClass("btn btn-secondary");
+            viewBidsBtn.attr("id", "viewBidsBtn");
+            gigDiv.append(gigName);
+            gigDiv.append(gigDesc);
+            gigDiv.append(viewBidsBtn);
+            mainGig.append(gigDiv)
+            $("#myGigs").append(mainGig);
+        }
+      });  
 })
