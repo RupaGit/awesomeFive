@@ -20,10 +20,11 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> -->
 
   <style>
-    #employee-table th,
-    td {
-      display: inline-block;
-      width: 16.65%;    }
+    #partTime-table .btn_width {
+      width: 15%;    }
+      #partTime-table #description{
+        width: 28%;
+      }  
   </style>
 </head>
 
@@ -36,42 +37,34 @@
     <div class="jumbotron" style="background-color: #230A59; color: white">
       <h1 class="text-center">Part Time Gig List</h1>
     </div>
-      
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Add Job title  -->
-        <div class="card mb-4">
-          <div class="card-header" style="text-align: left;">Find Your Part-Time Job!</div>
-          <div class="card-body">
-
-            <!-- Entry Bid -->
             <div class="row">
-              <div class="col-sm-6">
-                <div class="card" id="bidCard">
+
+              <div class="col-md-12">
+        
+                <!-- Current part-time job-->
+                <div class="card mb-4">
+                  <div class="card-header">Find Your Part-Time Job!</div>
                   <div class="card-body">
-                    <h5 class="card-title">Gig 1</h5>
-                    <p class="card-text">Programmer needed to bulid an app.</p>
-                    <a href="#" class="btn btn-primary">Bid</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Gig 2</h5>
-                    <p class="card-text">Dog walker needed. </p>
-                    <a href="#" class="btn btn-primary">Bid</a>
+                    <table class="table table-sm table-hover" id='partTime-table'>
+                      <thead>
+                        <tr>
+                          <th class= 'btn_width' scope="col">Job Title</th>
+                          <th class= 'btn_width' scope="col">City</th>
+                          <th scope="col" id="description">Description</th>
+                          <th class= 'btn_width' scope="col">Suggested Price($)</th>
+                          <th class= 'btn_width' scope="col">Job Bid!</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
 
   <!-- JavaScript -->
   <script src="assets/javaScript/logic.js"></script>
