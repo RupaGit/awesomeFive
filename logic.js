@@ -109,7 +109,7 @@
 
 
 // When Modal Box..
-$("#bidCard").on("click",function() {
+$("#simpleModal").on("click",function() {
 // get modal element
 var modal = document.getElementById('simpleModal');
 //get opne modal nutton
