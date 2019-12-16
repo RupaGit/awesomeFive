@@ -54,10 +54,19 @@ $("#submit-employersForm").on("click", function (event) {
         hourDaily: hourDaily,
         contact: contact,
         description: description
+        // status: "active"
     }
-    database.ref("/jobDetails").push(newJob);
+    
+   var newJobKey = database.ref("/jobDetails").push(newJob).key;
     console.log(newJob);
-});
+   
+    setTimeout(function(){
+      database.ref("/expired/"+newJobKey).set(newJob);
+      database.ref("/jobDetails/"+newJobKey).remove();
+    },3*60*60*1000);
+  });
+
+
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
     var jobTitle = snapShot.val().jobTitle;
@@ -68,12 +77,15 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
     var buttonBid = snapShot.val().buttonBid;
 
     console.log(snapShot.val())
+    //onclick doesn't work
+    var button = $("<button onclick='window.location.href='index.html',' type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid);
+    
     var newRow = $("<tr>").append(
         $("<td>").text(jobTitle),
         $("<td>").text(city),
         $("<td>").text(description),
         $("<td>").text(suggestedPrice),
-        $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
+        button
     );
     $("#partTime-table > tbody").append(newRow);
 });
