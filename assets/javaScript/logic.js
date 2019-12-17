@@ -30,7 +30,7 @@ if($("#map").length !== 0){
 
 $("#submit-employersForm").on("click", function (event) {
     // Prevent the page from refreshing
-    event.preventDefault();
+     event.preventDefault();//<-hold information
 
     // Get inputs
     name = $("#name-input ").val().trim();
@@ -55,15 +55,15 @@ $("#submit-employersForm").on("click", function (event) {
         contact: contact,
         description: description
     }
-    database.ref("/jobDetails").push(newJob);
     console.log(newJob);
+    console.log("line works!")
 
     var newJobKey = database.ref("/jobDetails").push(newJob).key;
     setTimeout(function(){
       console.log("timeout");
       database.ref("/expired/"+newJobKey).set(newJob);
       database.ref("/jobDetails/"+newJobKey).remove();
-    },3*1000);
+    },3*60*60*1000);
 
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
