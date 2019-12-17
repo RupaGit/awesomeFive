@@ -6,7 +6,7 @@ var firebaseConfig = {
     projectId: "parttimegigs-10b82",
     storageBucket: "parttimegigs-10b82.appspot.com",
     messagingSenderId: "611238406430",
-    appId: "1:611238406430:web:f7cfd459d83705b67d810f"
+    appId: "1:611238406430:web:f7cfd459d83705b67d810f",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -19,18 +19,18 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 //guy's code
 
-
-mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11'
-}); 
-
+if($("#map").length !== 0){
+  mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11'
+  }); 
+};
 
 
 $("#submit-employersForm").on("click", function (event) {
     // Prevent the page from refreshing
-    event.preventDefault();
+     event.preventDefault();//<-hold information
 
     // Get inputs
     name = $("#name-input ").val().trim();
@@ -53,16 +53,23 @@ $("#submit-employersForm").on("click", function (event) {
         suggestedPrice: suggestedPrice,
         hourDaily: hourDaily,
         contact: contact,
-        description: description
+        description: description,
+        status: "active"
     }
-    database.ref("/jobDetails").push(newJob);
     console.log(newJob);
+    console.log("line works!")
 
     var newJobKey = database.ref("/jobDetails").push(newJob).key;
-    setTimeout(function(){
-      database.ref("/expired/"+newJobKey).set(newJob);
-      database.ref("/jobDetails/"+newJobKey).remove();
+    
+    setTimeout(function(){ 
+      var updates = {};   
+      updates["/" + newJobKey + "/status"] = "expired";
+      database.ref("/jobDetails").update(updates);
+      console.log("timeout");
+      // database.ref("/expired/"+newJobKey).set(newJob);
+      // database.ref("/jobDetails/"+newJobKey).remove();
     },3*60*60*1000);
+
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
@@ -83,6 +90,7 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         button
     );
     newRow.attr('data-address',city);
+    // newRow.attr("data-fireBaseRef", snapshot.ref());
     $("#partTime-table > tbody").append(newRow);
 });  
 
@@ -151,7 +159,8 @@ function getRoute(start, end) {
   req.send();
 }
 
-map.on('load', function() {
+if($("#map").length !== 0){
+  map.on('load', function() {
 
   var coord1= []
   var coord2 = []
@@ -246,6 +255,8 @@ function getCompleteRoute(start,end) {
   getRoute(start, end);
   }
 });
+}
+
 $("#submit-checkEmployerGigs").on("click", function(event){
     event.preventDefault();
     const databaseRef = firebase.database().ref("jobDetails");
