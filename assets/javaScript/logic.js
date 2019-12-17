@@ -96,14 +96,35 @@ $("#submit-checkEmployerGigs").on("click", function(event){
             gigName.addClass("card-title");
             var gigDesc = $("<p>").text(gigsArray[i].description);
             gigDesc.addClass("card-text");
-            var viewBidsBtn = $("<a>").html("View Bids");
+            var viewBidsBtn = $("<button>").html("View Bids");
             viewBidsBtn.addClass("btn btn-secondary");
             viewBidsBtn.attr("id", "viewBidsBtn");
+            var editGigBtn = $("<button>").html("Edit My Gig");
+            editGigBtn.attr("data-whatever","Edit my Gig");
+            editGigBtn.attr("data-target","#editGigModal");
+            editGigBtn.attr("data-toggle","modal");
+            editGigBtn.addClass("btn btn-secondary");
             gigDiv.append(gigName);
             gigDiv.append(gigDesc);
             gigDiv.append(viewBidsBtn);
+            gigDiv.append(editGigBtn);
             mainGig.append(gigDiv)
             $("#myGigs").append(mainGig);
+            //Clicking on a view bids button opens all the bids associated with your gig. 
+            $("#viewBidsBtn").on("click", function(){
+                document.location.href = "gigBids.html";
+            });
+            //Clicking on edit my Gig button will gives the user options to edit their gig.
+            $("#editGigBtn").on("click", function(){
+
+            });
         }
       });  
 })
+
+
+// $(document).on("click","button #viewBidsBtn",function(){ 
+//     document.location.href = "gigBids.html";
+// });
+
+{/* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button> */}

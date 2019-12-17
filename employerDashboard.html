@@ -21,6 +21,9 @@
         .card {
             margin-bottom: 20px;
         }
+        button * {
+            margin-right: 10px;
+        }
     </style>
 
 </head>
@@ -36,15 +39,55 @@
         </form>
     </div>
 
-    <div class="container" >
-        <div class = "jumbotron" id="myGigs">
-
-        </div>
+    <div class="container" id="myGigs">
+        
 
     </div>
+
+    <div class="modal fade" id="editGigModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Gig</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="user-name" class="col-form-label">User Name</label>
+                  <input type="text" class="form-control" id="user-name">
+                </div>
+                <div class="form-group">
+                  <label for="job-title" class="col-form-label">Job Title</label>
+                  <input type="text" class="form-control" id="job-title">
+                </div>
+                <div class="form-group">
+                    <label for="job-on-date" class="col-form-label">Service Date</label>
+                    <input type="date" class="form-control" id="job-on-date">
+                </div>
+                <div class="form-group">
+                    <label for="job-at-time" class="col-form-label">Service Time</label>
+                    <input type="date" class="form-control" id="job-at-time">
+                </div>
+                <div class="form-group">
+                    <label for="user-email" class="col-form-label">User Email</label>
+                    <input type="email" class="form-control" id="user-email">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script src="assets/javaScript/logic.js"></script>
 
 </body>
 
 </html>
+
