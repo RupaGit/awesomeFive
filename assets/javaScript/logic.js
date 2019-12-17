@@ -60,9 +60,9 @@ $("#submit-employersForm").on("click", function (event) {
     console.log("line works!")
 
     var newJobKey = database.ref("/jobDetails").push(newJob).key;
-    
+    var updates = {};
     setTimeout(function(){ 
-      var updates = {};   
+        
       updates["/" + newJobKey + "/status"] = "expired";
       database.ref("/jobDetails").update(updates);
       console.log("timeout");
