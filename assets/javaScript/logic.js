@@ -19,13 +19,13 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 //guy's code
 
-
-mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11'
-}); 
-
+if($("#map").length !== 0){
+  mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11'
+  }); 
+};
 
 
 $("#submit-employersForm").on("click", function (event) {
@@ -60,9 +60,11 @@ $("#submit-employersForm").on("click", function (event) {
 
     var newJobKey = database.ref("/jobDetails").push(newJob).key;
     setTimeout(function(){
+      console.log("timeout");
       database.ref("/expired/"+newJobKey).set(newJob);
       database.ref("/jobDetails/"+newJobKey).remove();
-    },3*60*60*1000);
+    },3*1000);
+
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
@@ -151,7 +153,8 @@ function getRoute(start, end) {
   req.send();
 }
 
-map.on('load', function() {
+if($("#map").length !== 0){
+  map.on('load', function() {
 
   var coord1= []
   var coord2 = []
@@ -246,6 +249,8 @@ function getCompleteRoute(start,end) {
   getRoute(start, end);
   }
 });
+}
+
 $("#submit-checkEmployerGigs").on("click", function(event){
     event.preventDefault();
     const databaseRef = firebase.database().ref("jobDetails");
