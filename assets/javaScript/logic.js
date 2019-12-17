@@ -78,9 +78,20 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
     $("#partTime-table > tbody").append(newRow);
 });  
 
+// set the bounds of the map
+// var bounds = [[-73.988154, 40.719929],[-73.9893433, 40.7426854]];
+// map.setMaxBounds(bounds);
+
+// an arbitrary start will always be the same
+// only the end or destination will change
+// var start = [-122.662323, 45.523751];
 
 // create a function to make a directions request
 function getRoute(start, end) {
+  // make a directions request using cycling profile
+  // an arbitrary start will always be the same
+  // only the end or destination will change
+  // var start = [-122.662323, 45.523751];
   var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
 
   // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
