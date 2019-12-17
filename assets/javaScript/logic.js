@@ -1,4 +1,4 @@
-77// $(document).ready(function () {
+// $(document).ready(function () {
 var firebaseConfig = {
     apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
     authDomain: "parttimegigs-10b82.firebaseapp.com",
@@ -20,7 +20,7 @@ var database = firebase.database();
 //guy's code
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11'
@@ -75,15 +75,84 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         $("<td>").text(suggestedPrice),
         $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
     );
+    newRow.attr('data-address',city);
     $("#partTime-table > tbody").append(newRow);
-});
-var coord1= []
-var coord2 = []
-$("#GoogleMapButton").on("click", function () {
+});  
+
+// set the bounds of the map
+// var bounds = [[-73.988154, 40.719929],[-73.9893433, 40.7426854]];
+// map.setMaxBounds(bounds);
+
+// an arbitrary start will always be the same
+// only the end or destination will change
+// var start = [-122.662323, 45.523751];
+
+// create a function to make a directions request
+function getRoute(start, end) {
+  // make a directions request using cycling profile
+  // an arbitrary start will always be the same
+  // only the end or destination will change
+  // var start = [-122.662323, 45.523751];
+  var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+  // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+  var req = new XMLHttpRequest();
+  req.responseType = 'json';
+  req.open('GET', url, true);
+  req.onload = function() {
+    var data = req.response.routes[0];
+    var route = data.geometry.coordinates;
+    var geojson = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: route
+      }
+    };
+    // if the route already exists on the map, reset it using setData
+    if (map.getSource('route')) {
+      map.getSource('route').setData(geojson);
+    } else { // otherwise, make a new request
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: geojson
+            }
+          }
+        },
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#3887be',
+          'line-width': 5,
+          'line-opacity': 0.75
+        }
+      });
+    }
+    // add turn instructions here at the end
+  };
+  req.send();
+}
+
+map.on('load', function() {
+
+  var coord1= []
+  var coord2 = []
+
+  $("#GoogleMapButton").on("click", function () {
     var address = "105 Rivington St,New York,NY 10002"; 
-   
-    var zipcode2 = 11019;
-    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
+    var address1 = encodeURI(address)
+    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address1+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -94,8 +163,9 @@ $("#GoogleMapButton").on("click", function () {
         coord1.push(results,results2);
         console.log("i hate aPI ",coord1);
     })
-    address2 = "16 Madison Square West,New York,NY 10010" 
-    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address2+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
+    address2 = "16 Madison Square West,New York,NY 10010" ;
+    address3 = encodeURI(address2)
+    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address3+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -106,99 +176,69 @@ $("#GoogleMapButton").on("click", function () {
         coord2.push(results,results2);
         console.log("i hate aPI ",coord2);
     })
-    console.log(coord1,coord2);
-});
 
-// getRoute(coord1,coord2);
-function getRoute(start,end) {
-    // make a directions request using cycling profile
-    // an arbitrary start will always be the same
-    // only the end or destination will change
-    // var start = [-122.662323, 45.523751];
-    var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
-  
-    // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
-    var req = new XMLHttpRequest();
-    req.responseType = 'json';
-    req.open('GET', url, true);
-    req.onload = function() {
-      var data = req.response.routes[0];
-      var route = data.geometry.coordinates;
-      var geojson = {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: route
-        }
-      };
-      // if the route already exists on the map, reset it using setData
-      if (map.getSource('route')) {
-        map.getSource('route').setData(geojson);
-      } else { // otherwise, make a new request
-        map.addLayer({
-          id: 'route',
-          type: 'line',
-          source: {
-            type: 'geojson',
-            data: {
-              type: 'Feature',
-              properties: {},
-              geometry: {
-                type: 'LineString',
-                coordinates: geojson
-              }
-            }
-          },
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-          },
-          paint: {
-            'line-color': '#3887be',
-            'line-width': 5,
-            'line-opacity': 0.75
-          }
-        });
-      }
-      // add turn instructions here at the end
-    };
-    req.send();
-  }
-  
-  map.on('load', function() {
-    // make an initial directions request that
-    // starts and ends at the same location
-    getRoute(coord1,coord2);
-  
-    // Add starting point to the map
-    map.addLayer({
-      id: 'point',
-      type: 'circle',
-      source: {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [{
-            type: 'Feature',
-            properties: {},
-            geometry: {
-              type: 'Point',
-              coordinates: start
-            }
-          }
-          ]
-        }
-      },
-      paint: {
-        'circle-radius': 10,
-        'circle-color': '#3887be'
-      }
-    });
-    // this is where the code from the next step will go
+    setTimeout(function() {
+      getCompleteRoute(coord1,coord2)
+    }, 3000);
   });
 
 
+function getCompleteRoute(start,end) {
+  console.log('start',start, 'end',end)
+  
+  // add start point
+  map.addLayer({
+    id: 'point',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: start
+          }
+        }
+        ]
+      }
+    },
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#3887be'
+    }
+  });
+
+  // add end point
+  map.addLayer({
+    id: 'end',
+    type: 'circle',
+    source: {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: end
+          }
+        }]
+      }
+    },
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#f30'
+    }
+  });
+
+
+  getRoute(start, end);
+  }
+});
 $("#submit-checkEmployerGigs").on("click", function(event){
     event.preventDefault();
     const databaseRef = firebase.database().ref("jobDetails");

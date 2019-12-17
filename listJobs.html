@@ -6,7 +6,8 @@
 
   <meta charset="UTF-8">
   <title>Part Time Gig List</title>
-
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -26,6 +27,17 @@
       #partTime-table #description{
         width: 28%;
       }  
+                /* Always set the map height explicitly to define the size of the div
+                 * element that contains the map. */
+                #map {
+                  height: 500px;
+                }
+                /* Optional: Makes the sample page fill the window. */
+                html, body {
+                  height: 100%;
+                  margin: 0;
+                  padding: 0;
+                }
   </style>
 </head>
 
@@ -67,9 +79,24 @@
               </div>
             </div>
           </div>
-
+          <div class="container">
+            <div class="card-body jumbotron" id="Googlemap">
+                Google Mape
+            </div>
+            <div id='map' ></div>
+      <div>
+          <button id="GoogleMapButton">
+              Click it
+          </button>
+          </div>
+        </div>
+      
+           
+           </script>
   <!-- JavaScript -->
   <script src="assets/javaScript/logic.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./assets/javaScript/logic.js"></script>
 
 </body>
 
