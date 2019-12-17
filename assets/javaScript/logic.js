@@ -6,7 +6,7 @@ var firebaseConfig = {
     projectId: "parttimegigs-10b82",
     storageBucket: "parttimegigs-10b82.appspot.com",
     messagingSenderId: "611238406430",
-    appId: "1:611238406430:web:f7cfd459d83705b67d810f"
+    appId: "1:611238406430:web:f7cfd459d83705b67d810f",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -53,17 +53,22 @@ $("#submit-employersForm").on("click", function (event) {
         suggestedPrice: suggestedPrice,
         hourDaily: hourDaily,
         contact: contact,
-        description: description
+        description: description,
+        status: "active"
     }
     console.log(newJob);
     console.log("line works!")
 
     var newJobKey = database.ref("/jobDetails").push(newJob).key;
-    setTimeout(function(){
+    
+    setTimeout(function(){ 
+      var updates = {};   
+      updates["/" + newJobKey + "/status"] = "expired";
+      database.ref("/jobDetails").update(updates);
       console.log("timeout");
-      database.ref("/expired/"+newJobKey).set(newJob);
-      database.ref("/jobDetails/"+newJobKey).remove();
-    },3*60*60*1000);
+      // database.ref("/expired/"+newJobKey).set(newJob);
+      // database.ref("/jobDetails/"+newJobKey).remove();
+    },5*1000);
 
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
