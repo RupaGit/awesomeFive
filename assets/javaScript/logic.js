@@ -68,7 +68,7 @@ $("#submit-employersForm").on("click", function (event) {
       console.log("timeout");
       // database.ref("/expired/"+newJobKey).set(newJob);
       // database.ref("/jobDetails/"+newJobKey).remove();
-    },5*1000);
+    },3*60*60*1000);
 
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
