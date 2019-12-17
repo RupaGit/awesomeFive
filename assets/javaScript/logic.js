@@ -20,7 +20,7 @@ var database = firebase.database();
 //guy's code
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11'
@@ -75,6 +75,7 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         $("<td>").text(suggestedPrice),
         $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
     );
+    newRow.attr('data-address',city);
     $("#partTime-table > tbody").append(newRow);
 });  
 
