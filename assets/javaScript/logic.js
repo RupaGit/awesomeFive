@@ -57,6 +57,12 @@ $("#submit-employersForm").on("click", function (event) {
     }
     database.ref("/jobDetails").push(newJob);
     console.log(newJob);
+
+    var newJobKey = database.ref("/jobDetails").push(newJob).key;
+    setTimeout(function(){
+      database.ref("/expired/"+newJobKey).set(newJob);
+      database.ref("/jobDetails/"+newJobKey).remove();
+    },3*60*60*1000);
 });
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
@@ -68,12 +74,13 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
     var buttonBid = snapShot.val().buttonBid;
 
     console.log(snapShot.val())
+    var button = $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid);
     var newRow = $("<tr>").append(
         $("<td>").text(jobTitle),
         $("<td>").text(city),
         $("<td>").text(description),
         $("<td>").text(suggestedPrice),
-        $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
+        button
     );
     newRow.attr('data-address',city);
     $("#partTime-table > tbody").append(newRow);
