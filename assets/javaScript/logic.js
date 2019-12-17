@@ -90,6 +90,7 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         button
     );
     newRow.attr('data-address',city);
+    newRow.attr("data-fireBaseRef", snapshot.ref());
     $("#partTime-table > tbody").append(newRow);
 });  
 
