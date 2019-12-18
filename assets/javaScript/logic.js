@@ -1,4 +1,3 @@
-77// $(document).ready(function () {
 var firebaseConfig = {
     apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
     authDomain: "parttimegigs-10b82.firebaseapp.com",
@@ -75,7 +74,6 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         $("<td>").text(suggestedPrice),
         $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid)
     );
-    newRow.attr("data-FireBaseRef", snapShot.key);
     $("#partTime-table > tbody").append(newRow);
     
 });
@@ -234,75 +232,50 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
 //     }
 //   });
 // })
+$("#editGigModal").on("show.bs.modal", function(){
+  debugger
+  // $("#editGigModal").modal('show');
+  console.log("Test");
+});
 
+var databaseRef = firebase.database().ref("jobDetails").orderByKey();
 
 $("#submit-checkEmployerGigs").on("click", function (event) {
     event.preventDefault();
-    var databaseRef = firebase.database().ref("jobDetails").orderByKey();
     var empName = $("#employerEmail").val().trim();
-    $("#formDiv").hide();
-    $("#myGigs").show();
-    databaseRef.once("value")
-      .then(function(snapshot) {
-        var welcomeUser = $("<h3>").html("Welcome back " + empName);
-        $("#myGigs").prepend(welcomeUser);
-
-        snapshot.forEach(function(childSnapshot) {
-          // key will be "ada" the first time and "alan" the second time
-          // childData will be the actual contents of the child
-          if(childSnapshot.val().name === empName){
-            var key = childSnapshot.key;
-            var childData = childSnapshot.val().name;
-            console.log("Key is "+ key);
-            console.log("value is "+ childData);
-            var mainGig = $("<div>");
-            mainGig.attr("data-reference",childSnapshot.key)
-            mainGig.addClass("card border-dark");
-            var gigDiv = $("<div>");
-            gigDiv.addClass("card-body");
-            var gigName = $("<h5>").html(childSnapshot.val().jobTitle);
-            gigName.addClass("card-title");
-            var gigDesc = $("<p>").text(childSnapshot.val().description);
-            gigDesc.addClass("card-text");
-            var viewBidsBtn = $("<button>").html("View Bids");
-            viewBidsBtn.addClass("btn btn-secondary");
-            viewBidsBtn.attr("id", "viewBidsBtn");
-            viewBidsBtn.attr("data-fbref", childSnapshot.key);
-            var editGigBtn = $("<button>").html("Edit My Gig");
-            editGigBtn.attr("data-whatever", "Edit my Gig");
-            editGigBtn.attr("data-target", "#editGigModal");
-            editGigBtn.addClass("editGigBtn");
-            editGigBtn.attr("data-fbref", childSnapshot.key);
-            editGigBtn.attr("data-toggle", "modal");
-            editGigBtn.addClass("btn btn-secondary");
-            gigDiv.append(gigName);
-            gigDiv.append(gigDesc);
-            gigDiv.append(viewBidsBtn);
-            gigDiv.append(editGigBtn);
-            mainGig.append(gigDiv)
-            $("#myGigs").append(mainGig);
-            $("#viewBidsBtn").on("click", function () {
-              debugger
-              var buttonRef = $(this).attr("data-fbref");
-              console.log(buttonRef);
-              document.location.href = "gigBids.html";
-            });
-            $(".editGigBtn").on("click", function () {
-              var dataRefId = $(this).attr("data-fbref");
-              $("#editGigModal").modal().on('show', function(){
-                databaseRef.child(buttonRef).on("child_added", function (snapshot1) {
-                  console.log(snapshot1.val());
-              });
-          });
-              
-          });
-
-          }
-
-          
-        });
-      });
+    document.location.href = "myGigs.html?user=" + empName;
 });
+
+
+$(".editGigBtn").click(function(){
+  console.log('TEST TEST');
+});
+
+// setInterval(() => {
+//   if (!$('#editGigModal').is(':visible')) return;
+
+//   console.log('sss')
+// })
+
+// $(document).on("show.bs.modal", "#editGigModal", function () { 
+//   console.log('Hi');
+// });
+
+// $(document).on('show.bs.modal','#editGigModal', function () {
+//   alert('hi');
+// })
+
+// $("#editGigModal").on('show', function () {
+//   console.log('edit modal loaded');
+//   var dataRefId = $(this).attr("data-fbref");
+//   console.log("Hi i am Active")
+//   // // $("#editGigModal").modal().on('show', function(){
+//   // //   databaseRef.child(buttonRef).on("child_added", function (snapshot1) {
+//   // //     console.log(snapshot1.val());
+//   // });
+// // });
+  
+// });
 
 // $(".editGigBtn").on("click", function () {
 //   console.log("Test");

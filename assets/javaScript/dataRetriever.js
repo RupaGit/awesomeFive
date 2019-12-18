@@ -13,4 +13,4 @@ firebase.initializeApp(firebaseConfig);
 
 databaseRef.child(buttonRef).on("child_added", function (snapshot1) {
     console.log(snapshot1.val());var database = firebase.database();
-}
+});
