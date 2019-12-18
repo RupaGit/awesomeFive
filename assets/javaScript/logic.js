@@ -33,6 +33,17 @@ newRow.attr('data-address',city);
     newRow.attr('id',city);
 
 
+// Accessing different pages using callback functions
+$(document).on('click', "#listGigs",function(){
+  location.href = "listJobs.html";
+});
+$(document).on('click', "#publishgig",function(){
+  location.href = "publishGig.html";
+});
+$(document).on('click', "#showDashboard",function(){
+  location.href = "employerDashboard.html";
+});
+
 
 $("#submit-employersForm").on("click", function (event) {
     // Prevent the page from refreshing
@@ -333,55 +344,54 @@ $(document).on('click', ".editGigBtn",function(){
     });
 
   
-$("#submit-checkEmployerGigs").on("click", function(event){
-    event.preventDefault();
-    const databaseRef = firebase.database().ref("jobDetails");
-    var empName = $("#employerEmail").val().trim();
-    $("#formDiv").hide();
-    $("#myGigs").show();
-    var welcomeUser = $("<h3>").html("Welcome back "+empName);
-    databaseRef.orderByChild("name").equalTo(empName).on("child_added", function(snapshot) {
-        var gigsArray = [];
-        gigsArray.push(snapshot.val());
-        console.log(gigsArray);
-        $("#myGigs").prepend(welcomeUser);
-        snapshot.forEach(function(childSnapshot) {
-            if(childSnapshot.val().name === empName){
-                var key = childSnapshot.key;
-                var childData = childSnapshot.val().name;
-                var snapKey = childSnapshot.key;
-                console.log("value is "+ childData);
-                var mainGig = $("<div>");
-                mainGig.attr("data-reference", snapKey);
-                mainGig.addClass("card border-dark");
-                var gigDiv = $("<div>");
-                gigDiv.addClass("card-body");
-                var gigName = $("<h5>").html(childSnapshot.val().jobTitle);
-                gigName.addClass("card-title");
-                var gigDesc = $("<p>").text(childSnapshot.val().description);
-                gigDesc.addClass("card-text");
-                var viewBidsBtn = $("<a>").html("View Bids");
-                viewBidsBtn.addClass("btn btn-secondary viewBidsBtn");
-                viewBidsBtn.attr("data-fbref",snapKey);
-                var editGigBtn = $("<a>").html("Edit My Gig");
-                editGigBtn.addClass("editGigBtn");
-                editGigBtn.attr("data-fbref",snapKey);
-                editGigBtn.addClass("btn btn-secondary editGigBtn");
-                var viewGigBtn = $("<a>").html("View My Gig");
-                viewGigBtn.attr("data-fbref",snapKey);
-                viewGigBtn.addClass("btn btn-secondary viewGigBtn");
-                // var deleteGigBtn = $("<a>").html("Delete Gig");
-                // deleteGigBtn.attr("data-fbref",snapKey);
-                // deleteGigBtn.addClass("btn btn-secondary deleteGigBtn");
-                gigDiv.append(gigName);
-                gigDiv.append(gigDesc);
-                gigDiv.append(viewGigBtn);
-                gigDiv.append(editGigBtn);
-                gigDiv.append(viewBidsBtn);
-                mainGig.append(gigDiv)
-                $("#myGigs").append(mainGig);
-          }
-        });
+    $("#submit-checkEmployerGigs").on("click", function(event){
+      event.preventDefault();
+      $("#formDiv").hide();
+      $("#myGigs").show();
+      $("#editingGig").hide();
+      var empName = $("#employerName").val().trim();
+      var databaseRef = firebase.database().ref("jobDetails").orderByKey();
+      console.log("Employer name is "+ empName);
+      databaseRef.once("value")
+      .then(function(snapshot) {
+      var welcomeUser = $("<h3>").html("Welcome back " + empName);
+      $("#myGigs").prepend(welcomeUser);
+      snapshot.forEach(function(childSnapshot) {
+          if(childSnapshot.val().name === empName){
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val().name;
+              var snapKey = childSnapshot.key;
+              console.log("value is "+ childData);
+              var mainGig = $("<div>");
+              mainGig.attr("data-reference", snapKey);
+              mainGig.addClass("card border-dark");
+              var gigDiv = $("<div>");
+              gigDiv.addClass("card-body");
+              var gigName = $("<h5>").html(childSnapshot.val().jobTitle);
+              gigName.addClass("card-title");
+              var gigDesc = $("<p>").text(childSnapshot.val().description);
+              gigDesc.addClass("card-text");
+              var viewBidsBtn = $("<a>").html("View Bids");
+              viewBidsBtn.addClass("btn btn-secondary viewBidsBtn");
+              viewBidsBtn.attr("data-fbref",snapKey);
+              var editGigBtn = $("<a>").html("Edit My Gig");
+              editGigBtn.addClass("editGigBtn");
+              editGigBtn.attr("data-fbref",snapKey);
+              editGigBtn.addClass("btn btn-secondary editGigBtn");
+              var viewGigBtn = $("<a>").html("View My Gig");
+              viewGigBtn.attr("data-fbref",snapKey);
+              viewGigBtn.addClass("btn btn-secondary viewGigBtn");
+              // var deleteGigBtn = $("<a>").html("Delete Gig");
+              // deleteGigBtn.attr("data-fbref",snapKey);
+              // deleteGigBtn.addClass("btn btn-secondary deleteGigBtn");
+              gigDiv.append(gigName);
+              gigDiv.append(gigDesc);
+              gigDiv.append(viewGigBtn);
+              gigDiv.append(editGigBtn);
+              gigDiv.append(viewBidsBtn);
+              mainGig.append(gigDiv)
+              $("#myGigs").append(mainGig);
+        }
       });
+    });
 });
-
