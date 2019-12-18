@@ -3,6 +3,23 @@
     font-family: Optima, sans-serif;
 }
 
+<<<<<<< HEAD
+=======
+.container{
+    overflow: hidden;
+}
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+ #map {
+  height: 500px;
+  }
+  /* Optional: Makes the sample page fill the window. */
+ html, body {
+   height: 100%;
+     margin: 0;
+      padding: 0;
+                  }
+>>>>>>> 2c3053dbd7f253e78599928af3ccccc1d11ab3e2
 /* Employers Requirements */
 .tab {
     float: left;
