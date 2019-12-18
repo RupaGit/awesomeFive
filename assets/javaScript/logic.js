@@ -82,7 +82,7 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
     var buttonBid = snapShot.val().buttonBid;
 
     console.log(snapShot.val())
-    var button = $("<button type='button' id='bidButton' class='btn btn-outline-primary'>Bid</button>").html(buttonBid);
+    var button = $("<button type='button' class='btn btn-outline-primary bidButton'>Bid</button>").html(buttonBid);
     var newRow = $("<tr>").append(
         $("<td>").text(jobTitle),
         $("<td>").text(city),
@@ -91,7 +91,7 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         button
     );
     newRow.attr('data-address',city);
-    // newRow.attr("data-fireBaseRef", snapshot.ref());
+    button.attr("data-FireBaseRef", snapShot.key); //Grace, I added the key instead of ref. Also, As you can see I assigned the key to button so it can be captured easily.
     $("#partTime-table > tbody").append(newRow);
 });  
 
