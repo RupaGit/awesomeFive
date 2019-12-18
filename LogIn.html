@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href=' http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+
+    
+    <title>Part Time Gigs!</title>
+
+
+</head>
+
+<body>
+
+
+
+    <form class="container main">
+     <div id="login_div" class="main-div"> 
+        <h1>Part Time Gigs LogIn</h1>
+        <input type="email" placeholder="Email..." id="email_field">
+        <input type="password" placeholder="Password..." id="password_field"> 
+
+      
+        <button onclick="login()" class="button-primary" id="submit-logIn" type="submit">Login to Account</button>
+        <button onclick="create_account()" class="button-primary" id="submit-logIn" type="submit">Create a new Account</button>
+        </div> 
+    
+        <div id="user_div" class="hide" >
+            <h2>Welcome User</h2>
+            <p id="user_para">Welcome to Part Time Gigs, You're currently logged-in</p>
+            <button onclick="logout">Logout</button>
+            <button>Logout</button>
+        </div>
+     </div>
+      </form>  
+
+
+
+
+ <script>
+
+    
+    var app = firebase.initializeApp({
+      apiKey: 'AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g',
+      authDomain: 'parttimegigs-10b82.firebaseapp.com',
+      databaseURL: 'https://parttimegigs-10b82.firebaseio.com',
+      projectId: 'parttimegigs-10b82',
+      storageBucket: 'parttimegigs-10b82.appspot.com',
+      messagingSenderId: '611238406430'
+    });
+    
+
+//     var firebaseConfig = {
+//     apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
+//     authDomain: "parttimegigs-10b82.firebaseapp.com",
+//     databaseURL: "https://parttimegigs-10b82.firebaseio.com",
+//     projectId: "parttimegigs-10b82",
+//     storageBucket: "parttimegigs-10b82.appspot.com",
+//     messagingSenderId: "611238406430",
+//     appId: "1:611238406430:web:f7cfd459d83705b67d810f",
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// // Create a variable to reference the database
+// var database = firebase.database();
+// // Initial Variables (SET the first set IN FIREBASE FIRST)
+// // Note remember to create these same variables in Firebase!
+
+   
+  </script>   
+
+<script src="logic.js"></script>
+
+<!-- <script src="C:\Users\Aness\Downloads\parttimegigs-10b82-firebase-adminsdk-qbleg-455f539ef2.json"></script> -->
+</body>
+</html> 
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href=' http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+
+    
+    <title>Part Time Gigs!</title>
+
+
+</head>
+
+<body>
+
+<h1>User Database</h1>
+<input type="text" placeholder="name" id="nameField">
+<input type="text" placeholder="bid" id="bidField">
+<input type="text" placeholder="Email" id="emalilField">
+<button onclick="writeData()">Submit</button>
+<p id="data"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
+        authDomain: "parttimegigs-10b82.firebaseapp.com",
+        databaseURL: "https://parttimegigs-10b82.firebaseio.com",
+        projectId: "parttimegigs-10b82",
+        storageBucket: "parttimegigs-10b82.appspot.com",
+        messagingSenderId: "611238406430",
+        appId: "1:611238406430:web:f7cfd459d83705b67d810f",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // Create a variable to reference the database
+    var database = firebase.database();
+    // // Initial Variables (SET the first set IN FIREBASE FIRST)
+    // // Note remember to create these same variables in Firebase!
+
+//  var viewBidsBtn = $("<a>").html("View Bids");
+//                 viewBidsBtn.addClass("btn btn-secondary viewBidsBtn");
+//                 viewBidsBtn.attr("data-fbref",snapKey);
+
+function writeData () {
+    firebase.database().ref("Bid").set({
+        name: document.getElementById("nameField").value,
+        bid: document.getElementById("bidField").value,
+        // email: document.getElementById("emailField").value,
+      
+    });
+    
+database.ref("/Bid").child().on("value", function (snapshot1) {
+            $("#nameField").val(snapshot1.val().name);
+            $("#bidField").val(snapshot1.val().bid);
+            // $("#emailField").val(snapshot1.val().Email);
+            console.log("Bid id is"+BidId);
+         } );
+
+}
+
+
+
+
+
+
+
+
+// function getData(){
+//     firebase.database.ref('/').once('value', function(snapshot) {
+//         snapshot.forEach(function(childSnapshot)
+//         {
+//             var childKey = childSnapshot.key;
+//             var childData = childSnapshot.val();
+//             document.getElementById("data").innerHTML = childData['name'] + ", " + childData['bid'];
+//         }
+//   )
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
