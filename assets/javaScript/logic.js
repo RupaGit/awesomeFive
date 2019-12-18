@@ -20,13 +20,14 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 //guy's code
 
-if($("#map").length !== 0){
-  mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
-  var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11'
-  }); 
-};
+$('#map').hide();
+mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+// center: [40.7128, -74.0060], // starting position [lng, lat]
+// zoom: 3
+});
 
 // Accessing different pages using callback functions
 $(document).on('click', "#listGigs",function(){
@@ -204,12 +205,13 @@ function getRoute(start, end) {
 
 if($("#map").length !== 0){
   map.on('load', function() {
-
+console.log( document.querySelectorAll("tr[data-address]"))
   var coord1= []
   var coord2 = []
-
-  $("#GoogleMapButton").on("click", function () {
-    var address = "105 Rivington St,New York,NY 10002"; 
+  $("tr").on("click", function () {
+    $('#map').show();
+    var address = $(this).attr("data-address")
+    console.log("HOOOOYAAAA",address);
     var address1 = encodeURI(address)
     var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address1+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
     $.ajax({
@@ -221,27 +223,25 @@ if($("#map").length !== 0){
         var results2 = response.features[0].center[1];
         coord1.push(results,results2);
         console.log("i hate aPI ",coord1);
+        address2 = "Flushing,NY 11367" ;
+        address3 = encodeURI(address2)
+        var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address3+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            var results = response.features[0].center[0];
+            var results2 = response.features[0].center[1];
+            coord2.push(results,results2);
+            console.log("i hate aPI ",coord2);
+        })
     })
-    address2 = "16 Madison Square West,New York,NY 10010" ;
-    address3 = encodeURI(address2)
-    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address3+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-        var results = response.features[0].center[0];
-        var results2 = response.features[0].center[1];
-        coord2.push(results,results2);
-        console.log("i hate aPI ",coord2);
-    })
-
+   
     setTimeout(function() {
       getCompleteRoute(coord1,coord2)
     }, 3000);
   });
-
-
 function getCompleteRoute(start,end) {
   console.log('start',start, 'end',end)
   
@@ -266,10 +266,9 @@ function getCompleteRoute(start,end) {
     },
     paint: {
       'circle-radius': 10,
-      'circle-color': '#3887be'
+      'circle-color': '#3887BE'
     }
   });
-
   // add end point
   map.addLayer({
     id: 'end',
@@ -293,12 +292,11 @@ function getCompleteRoute(start,end) {
       'circle-color': '#f30'
     }
   });
-
-
   getRoute(start, end);
   }
-});
+  })
 }
+
 
 // Swarupa Popuri - Employer Dashboard code starts here. 
 $(document).on('click', ".editGigBtn",function(){
