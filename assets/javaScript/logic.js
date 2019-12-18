@@ -83,6 +83,35 @@ $("#submit-employersForm").on("click", function (event) {
     },3*60*60*1000);
 
 });
+
+$(document).on('click', ".bidButton", function () {
+  $("#partTimeGigList").hide();
+  $("#addABid").show();
+  $("#mapDisplay").hide();
+  $(document).on('click', "#btnSubmitBid", function () {
+    var empName = $("#emp-name-input").val().trim();
+    var bidPrice = parseInt($("#emp-hourly-rate").val().trim());
+    var empEmail = $("#emp-email").val().trim();
+    var empCity = $("#emp-city").val().trim();
+    var jobId = $(".bidButton").attr("data-FireBaseRef");
+    var newBid = {
+      empName: empName,
+      bidPrice: bidPrice,
+      empEmail: empEmail,
+      empCity: empCity,
+      jobId: jobId
+    }
+    var newBidKey = database.ref("/bids").push(newBid).key;
+    $("#partTimeGigList").show();
+    $("#addABid").hide();
+  });
+  $(document).on('click', "#btnGoBack", function () {
+    $("#partTimeGigList").show();
+    $("#addABid").hide();
+  });
+});  
+
+
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
     var jobTitle = snapShot.val().jobTitle;
@@ -104,6 +133,8 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
     newRow.attr('data-address',city);
     button.attr("data-FireBaseRef", snapShot.key); //Grace, I added the key instead of ref. Also, As you can see I assigned the key to button so it can be captured easily.
     $("#partTime-table > tbody").append(newRow);
+    $("#partTimeGigList").show(); //Grace, I have added show and hide buttons so we can complete bids without modals
+    $("#addABid").hide();
 });  
 
 // set the bounds of the map
@@ -304,6 +335,18 @@ $(document).on('click', ".editGigBtn",function(){
             $("#formDiv").hide()
         });
         
+    });
+
+    $(document).on("click",".viewBidsBtn", function(){
+      $("#formDiv").hide();
+        $("#myGigs").hide();
+        $("#editingGig").hide();
+        $("#viewingGig").hide();
+        $("#empBidsGig").show();
+        var jobId = $(this).attr("data-fbref");
+        database.ref("bids").child(jobId).on("value", function (snapshot1) {
+          console.log("empName is "+snapshot1.val());
+        });
     });
 
     $(document).on('click', ".viewGigBtn",function(){
