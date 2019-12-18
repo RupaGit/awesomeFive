@@ -38,7 +38,7 @@
         <form>
             <div class="form-group thead-dark" >
                 <label for="employerEmail">Employer Email address</label>
-                <input type="text" required class="form-control" id="employerName" placeholder="Please enter your Name">
+                <input type="text" required class="form-control" id="employerName" onkeyup="this.value = this.value.toUpperCase();" placeholder="Please enter your Name">
             </div>
             <button type="submit" class="btn btn-primary" id="submit-checkEmployerGigs">Submit</button>
         </form>
