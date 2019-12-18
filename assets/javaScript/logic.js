@@ -1,4 +1,5 @@
  // $(document).ready(function () {
+
 var firebaseConfig = {
     apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
     authDomain: "parttimegigs-10b82.firebaseapp.com",
@@ -322,20 +323,18 @@ $(document).on('click', ".editGigBtn",function(){
         
     });
 
-    
-
-
-    $("#submit-checkEmployerGigs").on("click", function(event){
-        event.preventDefault();
-        $("#formDiv").hide();
-        $("#myGigs").show();
-        $("#editingGig").hide();
-        var empName = $("#employerName").val().trim();
-        var databaseRef = firebase.database().ref("jobDetails").orderByKey();
-        console.log("Employer name is "+ empName);
-        databaseRef.once("value")
-        .then(function(snapshot) {
-        var welcomeUser = $("<h3>").html("Welcome back " + empName);
+  
+$("#submit-checkEmployerGigs").on("click", function(event){
+    event.preventDefault();
+    const databaseRef = firebase.database().ref("jobDetails");
+    var empName = $("#employerEmail").val().trim();
+    $("#formDiv").hide();
+    $("#myGigs").show();
+    var welcomeUser = $("<h3>").html("Welcome back "+empName);
+    databaseRef.orderByChild("name").equalTo(empName).on("child_added", function(snapshot) {
+        var gigsArray = [];
+        gigsArray.push(snapshot.val());
+        console.log(gigsArray);
         $("#myGigs").prepend(welcomeUser);
         snapshot.forEach(function(childSnapshot) {
             if(childSnapshot.val().name === empName){
