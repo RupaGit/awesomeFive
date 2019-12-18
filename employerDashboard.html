@@ -22,8 +22,11 @@
         .card {
             margin-bottom: 20px;
         }
-        button * {
+        a {
             margin-right: 10px;
+        }
+        #editingGig {
+            margin: 50 auto;
         }
     </style>
 
@@ -35,7 +38,7 @@
         <form>
             <div class="form-group thead-dark" >
                 <label for="employerEmail">Employer Email address</label>
-                <input type="text" required class="form-control" id="employerEmail" placeholder="Please enter your email address">
+                <input type="text" required class="form-control" id="employerName" placeholder="Please enter your Name">
             </div>
             <button type="submit" class="btn btn-primary" id="submit-checkEmployerGigs">Submit</button>
         </form>
@@ -45,50 +48,131 @@
 
         
     </div>
-    <div class="modal fade" id="editGigModal" role="dialog">
-      <div class="modal-dialog"> 
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Edit My Gig</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="user-name" class="col-form-label">User Name</label>
-                  <input type="text" class="form-control" id="user-name">
-                </div>
-                <div class="form-group">
-                  <label for="job-title" class="col-form-label">Job Title</label>
-                  <input type="text" class="form-control" id="job-title">
-                </div>
-                <div class="form-group">
-                    <label for="job-on-date" class="col-form-label">Service Date</label>
-                    <input type="date" class="form-control" id="job-on-date">
-                </div>
-                <div class="form-group">
-                    <label for="job-at-time" class="col-form-label">Service Time</label>
-                    <input type="date" class="form-control" id="job-at-time">
-                </div>
-                <div class="form-group">
-                    <label for="user-email" class="col-form-label">User Email</label>
-                    <input type="email" class="form-control" id="user-email" readonly>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
+
+    <!--Div to edit details of a gig-->
+    <div class = "container" id="editingGig" style="display: none;">
+      <form>
+        <div class="form-group row">
+          <label for="name-input" class="col-sm-2 col-form-label">Employer Name</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext border" id="name-input" >
           </div>
         </div>
-      </div>
+        <div class="form-group row">
+          <label for="jobTitle-input" class="col-sm-2 col-form-label">Job Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext border" id="jobTitle-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="city-input" class="col-sm-2 col-form-label">Location of Work</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext border" id="city-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="datefilter" class="col-sm-2 col-form-label">Date of Service</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control-plaintext border" id="datefilter" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="timefilter" class="col-sm-2 col-form-label">Time of Service</label>
+          <div class="col-sm-10">
+            <input type="time" class="form-control-plaintext border" id="timefilter" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="noOfHours" class="col-sm-2 col-form-label">Number of hours</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control-plaintext border" id="noOfHours" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="suggestedPrice" class="col-sm-2 col-form-label">Suggested Price</label>
+          <div class="col-sm-10">
+            <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" class="form-control-plaintext border" id="suggestedPrice" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="contact-input" class="col-sm-2 col-form-label">Email Address</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control-plaintext border" id="contact-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="description-input" class="col-sm-2 col-form-label">Email Address</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control-plaintext border" id="description-input" >
+          </div>
+        </div>
+      </form>
+      <button type="submit" id="update-Gig" class="btn btn-secondary">Save</button>
+    </div>
+
+    <!--Div to view details of a gig-->
+    <div class = "container" id="viewingGig" style="display: none;">
+      <form>
+        <div class="form-group row">
+          <label for="view-name-input" class="col-sm-2 col-form-label">Employer Name</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext border" id="view-name-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-jobTitle-input" class="col-sm-2 col-form-label">Job Title</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext border" id="view-jobTitle-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-city-input" class="col-sm-2 col-form-label">Location of Work</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext border" id="view-city-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-datefilter" class="col-sm-2 col-form-label">Date of Service</label>
+          <div class="col-sm-10">
+            <input type="date" readonly class="form-control-plaintext border" id="view-datefilter" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-timefilter" class="col-sm-2 col-form-label">Time of Service</label>
+          <div class="col-sm-10">
+            <input type="time" readonly class="form-control-plaintext border" id="view-timefilter" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-noOfHours" class="col-sm-2 col-form-label">Number of hours</label>
+          <div class="col-sm-10">
+            <input type="number" readonly class="form-control-plaintext border" id="view-noOfHours" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-suggestedPrice" class="col-sm-2 col-form-label">Suggested Price</label>
+          <div class="col-sm-10">
+            <input type="text" readonly pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" class="form-control-plaintext border" id="view-suggestedPrice" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-contact-input" class="col-sm-2 col-form-label">Email Address</label>
+          <div class="col-sm-10">
+            <input type="email" readonly class="form-control-plaintext border" id="view-contact-input" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="view-description-input" class="col-sm-2 col-form-label">Email Address</label>
+          <div class="col-sm-10">
+            <input type="email" readonly class="form-control-plaintext border" id="view-description-input" >
+          </div>
+        </div>
+      </form>
+      <button type="submit" id="btnGoBack" class="btn btn-secondary">Go Back</button>
+    </div>
 
     <script src="assets/javaScript/logic.js"></script>
 
-    <div class="container" id="myGigs">
-
-    </div>
 
 </body>
 
