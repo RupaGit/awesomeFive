@@ -17,10 +17,16 @@
      margin: 0;
       padding: 0;
                   }
+
 /* Employers Requirements */
 .tab {
     float: left;
     display: grid;
+}
+
+#wholeBody {
+    margin: auto;
+    width: 80%;
 }
 
 h1 {
@@ -36,30 +42,17 @@ h1 {
     text-align: center;
 }
 
-section {
-    padding: inherit;
-}
-
-#description-box {
-    font-size: medium;
-    border: 2px solid rgb(253, 116, 116);
-    padding: inherit;
-    line-height: 1.5;
-    height: 500px;
-}
-
 /* Employers Requirements */
 aside {
-    font-size: medium;
+    font-size: 20px;
     border: 2px solid rgb(253, 116, 116);
-    padding: inherit;
+    padding: 20px;
     line-height: 1.5;
 }
 /* Employers Requirements */
 form{ 
     pad: 30px;
     width: 65%;
-    float: left;
     display: grid;
     height: 700px;
 }

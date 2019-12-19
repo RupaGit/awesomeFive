@@ -1,107 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href=' http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
 
-  <!-- MapBox -->
-  <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
-  <style>
-    body * {
-        font-weight: bold;
-    }
-    </style>
+    
+    <title>Part Time Gigs!</title>
+
 
 </head>
 
-<nav class="navbar fixed-top navbar-light" style="background-color: #5DBCD2;">
-  <h1 class="text-white">PartTime Gigs</h1>
-</nav>
-<br>
-<br>
-<br>
-<br>
+<body>
 
-<!-- Page Content -->
-<div class="container">
 
-  <!-- Heading Row -->
-  <div class="row align-items-center my-5">
-    <div class="col-lg-7">
-      <img class="img-fluid rounded mb-4 mb-lg-0" src="assets/images/partTimeJobs1.jpg" alt="">
-    </div>
-    <!-- /.col-lg-8 -->
-    <div class="col-lg-5">
-      <h1 class="font-weight-light">Part Time Gigs</h1>
-      <h3>Welcome to Part Time gigs. Your one stop shop for employers and employees to find exactly what they are looking for.</h3>
-    </div>
-    <!-- /.col-md-4 -->
-  </div>
-  <!-- /.row -->
 
- 
+    <form class="container main">
+     <div id="login_div" class="main-div"> 
+        <h1>Part Time Gigs LogIn</h1>
+        <input type="email" placeholder="Email..." id="email_field">
+        <input type="password" placeholder="Password..." id="password_field"> 
 
-  <!-- Content Row -->
-  <div class="row">
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">Looking for a Job?</h2>
-          <p class="card-text">Hello..Welcome to Part Time gigs. If you are looking for a part time job, click on the button below </p>
-        </div>
-        <div class="card-footer">
-          <a href="#" id="listGigs" class="btn btn-secondary btn-lg">Show me all the jobs</a>
-        </div>
-      </div>
-    </div>
-    <!-- /.col-md-4 -->
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">Are you Looking to find some help?</h2>
-          <p class="card-text">Hello.. Welcome to Part time gigs. Looking for some help? Click below to post a part time gig</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" id="publishgig" class="btn btn-secondary btn-lg">Publish a Gig</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">Access Employer Dashboard</h2>
-          <p class="card-text">Ahh... So you want to look at the gigs you posted. Click below to access your dashboard</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" id="showDashboard" class="btn btn-secondary btn-lg">Dashboard</a>
-        </div>
-      </div>
-    </div>
+      
+        <button onclick="login()" class="button-primary" id="submit-logIn" type="submit">Login to Account</button>
+        <button onclick="create_account()" class="button-primary" id="submit-logIn" type="submit">Create a new Account</button>
+        </div> 
     
-  </div>
-  <!-- /.row -->
+        <div id="user_div" class="hide" >
+            <h2>Welcome User</h2>
+            <p id="user_para">Welcome to Part Time Gigs, You're currently logged-in</p>
+            <button onclick="logout">Logout</button>
+            <button>Logout</button>
+        </div>
+     </div>
+      </form>  
 
-</div>
-<!-- /.container -->
 
-<!-- Footer -->
-  <div class="container navbar-fixed-bottom">
-    <p class="m-0 text-center text-dark">Copyright &copy; PartTime gigs 2019</p>
-  </div>
-  <script src="assets/javaScript/logic.js"></script>
+
+
+ <script>
+
+    
+    var app = firebase.initializeApp({
+      apiKey: 'AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g',
+      authDomain: 'parttimegigs-10b82.firebaseapp.com',
+      databaseURL: 'https://parttimegigs-10b82.firebaseio.com',
+      projectId: 'parttimegigs-10b82',
+      storageBucket: 'parttimegigs-10b82.appspot.com',
+      messagingSenderId: '611238406430'
+    });
+    
+
+//     var firebaseConfig = {
+//     apiKey: "AIzaSyA7l_OBpsdhvzfh4IyVSzBwMNnOc8gmJ2g",
+//     authDomain: "parttimegigs-10b82.firebaseapp.com",
+//     databaseURL: "https://parttimegigs-10b82.firebaseio.com",
+//     projectId: "parttimegigs-10b82",
+//     storageBucket: "parttimegigs-10b82.appspot.com",
+//     messagingSenderId: "611238406430",
+//     appId: "1:611238406430:web:f7cfd459d83705b67d810f",
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// // Create a variable to reference the database
+// var database = firebase.database();
+// // Initial Variables (SET the first set IN FIREBASE FIRST)
+// // Note remember to create these same variables in Firebase!
+
+   
+  </script>   
+
+<script src="logic.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/javaScript/logic.js"></script>
+<script src="assets/javaScript/logInLogic.js"></script>
+<!-- <script src="C:\Users\Aness\Downloads\parttimegigs-10b82-firebase-adminsdk-qbleg-455f539ef2.json"></script>  -->
+
+<script>
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      window.location.href = "./homePage.html"
+      // document.getElementById("user_div").style.display = 'block';
+      // document.getElementById("login_div").style.display = 'none';
+
+      // var user = firebase.auth().currentUser;
+      
+      // if(user !=null){
+      //     var email_id = user.email;
+      //     var email_verified = user.email_verified;
+      //     document.getElementById("user_para").innerHTML = "Welcome User : " + email_id +
+      //                                                       "Verified : " + email_verified;
+      // }
+    } else {
+      // No user is signed in.
+      document.getElementById("user_div").style.display = 'none';
+      document.getElementById("login_div").style.display = 'block';
+    }
+    // login();
+  });
+
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     
 </body>
+</html> 
 
-</html>
