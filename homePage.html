@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+  <!-- MapBox -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body * {
+        font-weight: bold;
+    }
+    </style>
+
+</head>
+
+<nav class="navbar fixed-top navbar-light" style="background-color: #5DBCD2;">
+  <h1 class="text-white">PartTime Gigs</h1>
+</nav>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Heading Row -->
+  <div class="row align-items-center my-5">
+    <div class="col-lg-7">
+      <img class="img-fluid rounded mb-4 mb-lg-0" src="assets/images/partTimeJobs1.jpg" alt="">
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-5">
+      <h1 class="font-weight-light">Part Time Gigs</h1>
+      <h3>Welcome to Part Time gigs. Your one stop shop for employers and employees to find exactly what they are looking for.</h3>
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <!-- /.row -->
+
+ 
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-md-4 mb-5">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="card-title">Looking for a Job?</h2>
+          <p class="card-text">Hello..Welcome to Part Time gigs. If you are looking for a part time job, click on the button below </p>
+        </div>
+        <div class="card-footer">
+          <a href="listJobs.html" id="listGigs" class="btn btn-secondary btn-lg">Show me all the jobs</a>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->
+    <div class="col-md-4 mb-5">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="card-title">Are you Looking to find some help?</h2>
+          <p class="card-text">Hello.. Welcome to Part time gigs. Looking for some help? Click below to post a part time gig</p>
+        </div>
+        <div class="card-footer">
+          <a href="publishGig.html" id="publishgig" class="btn btn-secondary btn-lg">Publish a Gig</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-5">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="card-title">Access Employer Dashboard</h2>
+          <p class="card-text">Ahh... So you want to look at the gigs you posted. Click below to access your dashboard</p>
+        </div>
+        <div class="card-footer">
+          <a href="employerDashboard.html" id="showDashboard" class="btn btn-secondary btn-lg">Dashboard</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!-- /.row -->
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="assets/javaScript/logic.js"></script>
+     <script src="logic.js"></script>
+
+     
+   
+
+<!-- Footer -->
+  <div class="container navbar-fixed-bottom">
+    <p class="m-0 text-center text-dark">Copyright &copy; PartTime gigs 2019</p>
+  </div>
+  <script src="assets/javaScript/logic.js"></script>
+</body>
+
+</html>
