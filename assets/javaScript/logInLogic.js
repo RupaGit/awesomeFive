@@ -13,33 +13,34 @@
 // });
 
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      document.getElementById("user_div").style.display = 'block';
-      document.getElementById("login_div").style.display = 'none';
+// firebase.auth().onAuthStateChanged(function(user) {
+//     if (user) {
+//       // User is signed in.
+//       window.location.href = "./homePage.html"
+//       // document.getElementById("user_div").style.display = 'block';
+//       // document.getElementById("login_div").style.display = 'none';
 
-      var user = firebase.auth().currentUser;
+//       // var user = firebase.auth().currentUser;
       
-      if(user !=null){
-          var email_id = user.email;
-          var email_verified = user.email_verified;
-          document.getElementById("user_para").innerHTML = "Welcome User : " + email_id +
-                                                            "Verified : " + email_verified;
-      }
-    } else {
-      // No user is signed in.
-      document.getElementById("user_div").style.display = 'none';
-      document.getElementById("login_div").style.display = 'block';
-    }
-    // login();
-  });
+//       // if(user !=null){
+//       //     var email_id = user.email;
+//       //     var email_verified = user.email_verified;
+//       //     document.getElementById("user_para").innerHTML = "Welcome User : " + email_id +
+//       //                                                       "Verified : " + email_verified;
+//       // }
+//     } else {
+//       // No user is signed in.
+//       document.getElementById("user_div").style.display = 'none';
+//       document.getElementById("login_div").style.display = 'block';
+//     }
+//     // login();
+//   });
 
 function login(){
     event.preventDefault();//<-hold information
 
-    var userEmail = document.getElementById("email_field").Value;
-    var userPass = document.getElementById("password_field").Value;
+    var userEmail = document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
 
     firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
         // Handle Errors here.

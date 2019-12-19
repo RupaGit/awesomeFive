@@ -20,13 +20,29 @@ var database = firebase.database();
 // Click Button changes what is stored in firebase
 //guy's code
 
-if($("#map").length !== 0){
-  mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
-  var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11'
-  }); 
-};
+$('#map').hide();
+mapboxgl.accessToken ='pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+// center: [40.7128, -74.0060], // starting position [lng, lat]
+// zoom: 3
+}); 
+
+newRow.attr('data-address',city);
+    newRow.attr('id',city);
+
+
+// Accessing different pages using callback functions
+$(document).on('click', "#listGigs",function(){
+  location.href = "listJobs.html";
+});
+$(document).on('click', "#publishgig",function(){
+  location.href = "publishGig.html";
+});
+$(document).on('click', "#showDashboard",function(){
+  location.href = "employerDashboard.html";
+});
 
 
 $("#submit-employersForm").on("click", function (event) {
@@ -72,6 +88,35 @@ $("#submit-employersForm").on("click", function (event) {
     },3*60*60*1000);
 
 });
+
+$(document).on('click', ".bidButton", function () {
+  $("#partTimeGigList").hide();
+  $("#addABid").show();
+  $("#mapDisplay").hide();
+  $(document).on('click', "#btnSubmitBid", function () {
+    var empName = $("#emp-name-input").val().trim();
+    var bidPrice = parseInt($("#emp-hourly-rate").val().trim());
+    var empEmail = $("#emp-email").val().trim();
+    var empCity = $("#emp-city").val().trim();
+    var jobId = $(".bidButton").attr("data-FireBaseRef");
+    var newBid = {
+      empName: empName,
+      bidPrice: bidPrice,
+      empEmail: empEmail,
+      empCity: empCity,
+      jobId: jobId
+    }
+    var newBidKey = database.ref("/bids").push(newBid).key;
+    $("#partTimeGigList").show();
+    $("#addABid").hide();
+  });
+  $(document).on('click', "#btnGoBack", function () {
+    $("#partTimeGigList").show();
+    $("#addABid").hide();
+  });
+});  
+
+
 //Grace - When a user posts a new job, take snapshot of the new data added
 database.ref("/jobDetails").on("child_added", function (snapShot) {
     var jobTitle = snapShot.val().jobTitle;
@@ -90,9 +135,12 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         $("<td>").text(suggestedPrice),
         button
     );
-    newRow.attr('data-address',city);
+    
     button.attr("data-FireBaseRef", snapShot.key); //Grace, I added the key instead of ref. Also, As you can see I assigned the key to button so it can be captured easily.
     $("#partTime-table > tbody").append(newRow);
+    $("#partTimeGigList").show(); //Grace, I have added show and hide buttons so we can complete bids without modals
+    $("#addABid").hide();
+
 });  
 
 // set the bounds of the map
@@ -166,8 +214,10 @@ if($("#map").length !== 0){
   var coord1= []
   var coord2 = []
 
-  $("#GoogleMapButton").on("click", function () {
-    var address = "105 Rivington St,New York,NY 10002"; 
+  $("tr[data-address]").on("click", function () {
+    $('#map').show();
+    var address = $(this).attr("data-address")
+    console.log("HOOOOYAAAA",address);
     var address1 = encodeURI(address)
     var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address1+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
     $.ajax({
@@ -179,20 +229,21 @@ if($("#map").length !== 0){
         var results2 = response.features[0].center[1];
         coord1.push(results,results2);
         console.log("i hate aPI ",coord1);
+        address2 = "Flushing,NY 11367" ;
+        address3 = encodeURI(address2)
+        var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address3+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            var results = response.features[0].center[0];
+            var results2 = response.features[0].center[1];
+            coord2.push(results,results2);
+            console.log("i hate aPI ",coord2);
+        })
     })
-    address2 = "16 Madison Square West,New York,NY 10010" ;
-    address3 = encodeURI(address2)
-    var queryURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+address3+".json?bbox=-171.791110603,18.91619,-66.96466,71.3577635769&access_token=pk.eyJ1IjoiZ3V5eWFmZmVhciIsImEiOiJjazQ2NDZucnUwZ2F6M2VuNjI3cDliZXl6In0.plk0zq29BJttq6ylX-85bA";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-        var results = response.features[0].center[0];
-        var results2 = response.features[0].center[1];
-        coord2.push(results,results2);
-        console.log("i hate aPI ",coord2);
-    })
+   
 
     setTimeout(function() {
       getCompleteRoute(coord1,coord2)
@@ -295,6 +346,18 @@ $(document).on('click', ".editGigBtn",function(){
         
     });
 
+    $(document).on("click",".viewBidsBtn", function(){
+      $("#formDiv").hide();
+        $("#myGigs").hide();
+        $("#editingGig").hide();
+        $("#viewingGig").hide();
+        $("#empBidsGig").show();
+        var jobId = $(this).attr("data-fbref");
+        database.ref("bids").child(jobId).on("value", function (snapshot1) {
+          console.log("empName is "+snapshot1.val());
+        });
+    });
+
     $(document).on('click', ".viewGigBtn",function(){
         $("#formDiv").hide();
         $("#myGigs").hide();
@@ -324,55 +387,54 @@ $(document).on('click', ".editGigBtn",function(){
     });
 
   
-$("#submit-checkEmployerGigs").on("click", function(event){
-    event.preventDefault();
-    const databaseRef = firebase.database().ref("jobDetails");
-    var empName = $("#employerEmail").val().trim();
-    $("#formDiv").hide();
-    $("#myGigs").show();
-    var welcomeUser = $("<h3>").html("Welcome back "+empName);
-    databaseRef.orderByChild("name").equalTo(empName).on("child_added", function(snapshot) {
-        var gigsArray = [];
-        gigsArray.push(snapshot.val());
-        console.log(gigsArray);
-        $("#myGigs").prepend(welcomeUser);
-        snapshot.forEach(function(childSnapshot) {
-            if(childSnapshot.val().name === empName){
-                var key = childSnapshot.key;
-                var childData = childSnapshot.val().name;
-                var snapKey = childSnapshot.key;
-                console.log("value is "+ childData);
-                var mainGig = $("<div>");
-                mainGig.attr("data-reference", snapKey);
-                mainGig.addClass("card border-dark");
-                var gigDiv = $("<div>");
-                gigDiv.addClass("card-body");
-                var gigName = $("<h5>").html(childSnapshot.val().jobTitle);
-                gigName.addClass("card-title");
-                var gigDesc = $("<p>").text(childSnapshot.val().description);
-                gigDesc.addClass("card-text");
-                var viewBidsBtn = $("<a>").html("View Bids");
-                viewBidsBtn.addClass("btn btn-secondary viewBidsBtn");
-                viewBidsBtn.attr("data-fbref",snapKey);
-                var editGigBtn = $("<a>").html("Edit My Gig");
-                editGigBtn.addClass("editGigBtn");
-                editGigBtn.attr("data-fbref",snapKey);
-                editGigBtn.addClass("btn btn-secondary editGigBtn");
-                var viewGigBtn = $("<a>").html("View My Gig");
-                viewGigBtn.attr("data-fbref",snapKey);
-                viewGigBtn.addClass("btn btn-secondary viewGigBtn");
-                // var deleteGigBtn = $("<a>").html("Delete Gig");
-                // deleteGigBtn.attr("data-fbref",snapKey);
-                // deleteGigBtn.addClass("btn btn-secondary deleteGigBtn");
-                gigDiv.append(gigName);
-                gigDiv.append(gigDesc);
-                gigDiv.append(viewGigBtn);
-                gigDiv.append(editGigBtn);
-                gigDiv.append(viewBidsBtn);
-                mainGig.append(gigDiv)
-                $("#myGigs").append(mainGig);
-          }
-        });
+    $("#submit-checkEmployerGigs").on("click", function(event){
+      event.preventDefault();
+      $("#formDiv").hide();
+      $("#myGigs").show();
+      $("#editingGig").hide();
+      var empName = $("#employerName").val().trim();
+      var databaseRef = firebase.database().ref("jobDetails").orderByKey();
+      console.log("Employer name is "+ empName);
+      databaseRef.once("value")
+      .then(function(snapshot) {
+      var welcomeUser = $("<h3>").html("Welcome back " + empName);
+      $("#myGigs").prepend(welcomeUser);
+      snapshot.forEach(function(childSnapshot) {
+          if(childSnapshot.val().name === empName){
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val().name;
+              var snapKey = childSnapshot.key;
+              console.log("value is "+ childData);
+              var mainGig = $("<div>");
+              mainGig.attr("data-reference", snapKey);
+              mainGig.addClass("card border-dark");
+              var gigDiv = $("<div>");
+              gigDiv.addClass("card-body");
+              var gigName = $("<h5>").html(childSnapshot.val().jobTitle);
+              gigName.addClass("card-title");
+              var gigDesc = $("<p>").text(childSnapshot.val().description);
+              gigDesc.addClass("card-text");
+              var viewBidsBtn = $("<a>").html("View Bids");
+              viewBidsBtn.addClass("btn btn-secondary viewBidsBtn");
+              viewBidsBtn.attr("data-fbref",snapKey);
+              var editGigBtn = $("<a>").html("Edit My Gig");
+              editGigBtn.addClass("editGigBtn");
+              editGigBtn.attr("data-fbref",snapKey);
+              editGigBtn.addClass("btn btn-secondary editGigBtn");
+              var viewGigBtn = $("<a>").html("View My Gig");
+              viewGigBtn.attr("data-fbref",snapKey);
+              viewGigBtn.addClass("btn btn-secondary viewGigBtn");
+              // var deleteGigBtn = $("<a>").html("Delete Gig");
+              // deleteGigBtn.attr("data-fbref",snapKey);
+              // deleteGigBtn.addClass("btn btn-secondary deleteGigBtn");
+              gigDiv.append(gigName);
+              gigDiv.append(gigDesc);
+              gigDiv.append(viewGigBtn);
+              gigDiv.append(editGigBtn);
+              gigDiv.append(viewBidsBtn);
+              mainGig.append(gigDiv)
+              $("#myGigs").append(mainGig);
+        }
       });
+    });
 });
-
