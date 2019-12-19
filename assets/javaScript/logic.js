@@ -15,6 +15,32 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 // Initial Variables (SET the first set IN FIREBASE FIRST)
 // Note remember to create these same variables in Firebase!
+$(document).on('click', ".bidButton", function () {
+  location.href = "displayBids.html";
+});
+// $(document).on('click', "#btnSubmitBid", function () {
+//   console.log("I am clicked");
+//   var empName = $("#emp-name-input").val().trim();
+//   var bidPrice = parseInt($("#emp-hourly-rate").val().trim());
+//   var empEmail = $("#emp-email").val().trim();
+//   var empCity = $("#emp-city").val().trim();
+//   var jobId = $(".bidButton").attr("data-FireBaseRef");
+//   var newBid = {
+//     empName: empName,
+//     bidPrice: bidPrice,
+//     empEmail: empEmail,
+//     empCity: empCity,
+//     jobId: jobId
+//   }
+//   var newBidKey = database.ref("/bids").push(newBid).key;
+//   location.href = "listJobs.html";
+
+// });
+// $(document).on('click', "#btnGoBack", function () {
+//   location.href = "listJobs.html";
+
+// });
+// });
 
 
 // Click Button changes what is stored in firebase
@@ -28,6 +54,11 @@ style: 'mapbox://styles/mapbox/streets-v11',
 // center: [40.7128, -74.0060], // starting position [lng, lat]
 // zoom: 3
 });
+
+
+// newRow.attr('data-address',city);
+//     newRow.attr('id',city);
+
 
 // Accessing different pages using callback functions
 $(document).on('click', "#listGigs",function(){
@@ -85,32 +116,6 @@ $("#submit-employersForm").on("click", function (event) {
 
 });
 
-$(document).on('click', ".bidButton", function () {
-  $("#partTimeGigList").hide();
-  $("#addABid").show();
-  $("#mapDisplay").hide();
-  $(document).on('click', "#btnSubmitBid", function () {
-    var empName = $("#emp-name-input").val().trim();
-    var bidPrice = parseInt($("#emp-hourly-rate").val().trim());
-    var empEmail = $("#emp-email").val().trim();
-    var empCity = $("#emp-city").val().trim();
-    var jobId = $(".bidButton").attr("data-FireBaseRef");
-    var newBid = {
-      empName: empName,
-      bidPrice: bidPrice,
-      empEmail: empEmail,
-      empCity: empCity,
-      jobId: jobId
-    }
-    var newBidKey = database.ref("/bids").push(newBid).key;
-    $("#partTimeGigList").show();
-    $("#addABid").hide();
-  });
-  $(document).on('click', "#btnGoBack", function () {
-    $("#partTimeGigList").show();
-    $("#addABid").hide();
-  });
-});  
 
 
 //Grace - When a user posts a new job, take snapshot of the new data added
@@ -131,11 +136,12 @@ database.ref("/jobDetails").on("child_added", function (snapShot) {
         $("<td>").text(suggestedPrice),
         button
     );
-    newRow.attr('data-address',city);
+    
     button.attr("data-FireBaseRef", snapShot.key); //Grace, I added the key instead of ref. Also, As you can see I assigned the key to button so it can be captured easily.
     $("#partTime-table > tbody").append(newRow);
     $("#partTimeGigList").show(); //Grace, I have added show and hide buttons so we can complete bids without modals
     $("#addABid").hide();
+
 });  
 
 // set the bounds of the map
@@ -159,7 +165,8 @@ function getRoute(start, end) {
   req.responseType = 'json';
   req.open('GET', url, true);
   req.onload = function() {
-    var data = req.response.routes[0];
+    console.log(req.response);
+    var data = req.response.routes;
     var route = data.geometry.coordinates;
     var geojson = {
       type: 'Feature',
@@ -238,6 +245,7 @@ console.log( document.querySelectorAll("tr[data-address]"))
         })
     })
    
+
     setTimeout(function() {
       getCompleteRoute(coord1,coord2)
     }, 3000);
