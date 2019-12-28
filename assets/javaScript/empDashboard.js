@@ -54,9 +54,48 @@ $(document).on("click",".viewBidsBtn", function(){
     $("#editingGig").hide();
     $("#viewingGig").hide();
     $("#empBidsGig").show();
-    var jobId = $(this).attr("data-fbref");
-    database.ref("bids").child(jobId).on("value", function (snapshot1) {
-      console.log("empName is "+snapshot1.val());
+    var empJobId = $(this).attr("data-fbref");
+    var bidsRef = firebase.database().ref("bids").orderByKey();
+    bidsRef.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.val().jobId === empJobId){
+        var childData = childSnapshot.val().empName;
+        var snapKey = childSnapshot.key;
+        var mainBid = $("<div>");
+        mainBid.attr("data-reference", snapKey);
+        mainBid.addClass("card border-dark");
+        var bidDiv = $("<div>");
+        bidDiv.addClass("card-body");
+        var bidderName = $("<h5>").html(childSnapshot.val().empName+" ( "+ childSnapshot.val().empCity+" )");
+        bidderName.addClass("card-title");
+        var bidValue =$("<h6>").html("$"+childSnapshot.val().bidPrice);
+        bidValue.addClass("card-subtitle mb-2 text-muted");
+        var bidderEmail = $("<p>").text(childSnapshot.val().empEmail);
+        bidderEmail.addClass("card-text");
+        var bidSelect = $("<a>").html("Select Bid");
+        bidSelect.addClass("btn btn-secondary selectBidBtn");
+        bidSelect.attr("data-fbref",snapKey);
+        var bidCancel = $("<a>").html("Cancel");
+        bidCancel.addClass("btn btn-secondary cancelBtn");
+        bidCancel.attr("data-fbref",snapKey);
+        bidDiv.append(bidderName);
+        bidDiv.append(bidValue);
+        bidDiv.append(bidderEmail);
+        bidDiv.append(bidSelect);
+        bidDiv.append(bidCancel);
+        mainBid.append(bidDiv)
+        $("#empBidsGig").append(mainBid);
+        $(document).on("click", ".cancelBtn", function(){
+          $("#formDiv").hide();
+          $("#myGigs").show();
+          $("#editingGig").hide();
+          $("#viewingGig").hide();
+          $("#empBidsGig").empty();
+          $("#empBidsGig").hide();
+       });
+        }
+      });       
     });
 });
 
