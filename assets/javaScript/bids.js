@@ -15,17 +15,18 @@ var database = firebase.database();
 
   $(document).on('click', "#btnSubmitBid", function () {
     console.log("I am clicked");
+    console.log("job Id referencing the bid btn is "+sessionStorage.getItem("jobId"));
     var empName = $("#emp-name-input").val().trim();
     var bidPrice = parseInt($("#emp-hourly-rate").val().trim());
     var empEmail = $("#emp-email").val().trim();
     var empCity = $("#emp-city").val().trim();
-    // var jobId = $(".bidButton").attr("data-FireBaseRef");
+    var jobId = sessionStorage.getItem("jobId");
     var newBid = {
       empName: empName,
       bidPrice: bidPrice,
       empEmail: empEmail,
-      empCity: empCity
-    //   jobId: jobId
+      empCity: empCity,
+      jobId: jobId
     }
     var newBidKey = database.ref("/bids").push(newBid).key;
     location.href = "listJobs.html";
