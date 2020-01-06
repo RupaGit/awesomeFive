@@ -1,6 +1,6 @@
 # awesomeFive
 
-Hello... Thank you for visiting our app Part Time Gigs. 
+Hello... Thank you for visiting our app Part Time Gigs. You can access this page by clicking on the link https://rupagit.github.io/awesomeFive/
 
 To login to our app, Please use credentials parttimegigs01@gmail.com / AwesomeFive
 
